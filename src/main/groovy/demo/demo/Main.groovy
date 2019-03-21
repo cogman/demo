@@ -16,12 +16,14 @@ class Main {
         def start = System.currentTimeMillis()
         def result = groupBy(e)
         def end = System.currentTimeMillis()
-        println("In " + numElements + " found " + result + " who had fish pet, favorite number 3, favorite color red.  Took " + (end - start) + "ms" )
+        println("In " + numElements + " found " + result + " who had fish pet, favorite number 3, favorite color red.  Took " + (end - start) + "ms")
     }
 
     static Number groupBy(List<Entity> entities) {
-        entities.findAll { (3 == it.favoriteNumber) }
-                .findAll { it.pet == Pet.fish }
-                .count { it.favoriteColor == "red" }
+        entities.count {
+            it.pet == Pet.fish &&
+                    3 == it.favoriteNumber &&
+                    it.favoriteColor == "red"
+        }
     }
 }
